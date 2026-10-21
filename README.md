@@ -1,6 +1,5 @@
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=l23212219-bot/MSFP2)
 
-
 # Práctica 2: Modelo del sistema cardiovascular
 
 ## Información del estudiante
