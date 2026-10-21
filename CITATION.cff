@@ -1,0 +1,27 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: 'Práctica 2: Modelo del sistema cardiovascular'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: SERGIO Andree
+    family-names: Navarro Rodriguez
+    email: l23212219@tijuana.tecnm.mx
+    affiliation: TECNM-ITT
+repository-code: 'https://github.com/l23212219-bot/MSFP2'
+keywords:
+  - Circuito RLC
+  - Sistema cardiovascular
+  - Modelado de sistemas fisiológicos
+  - ' Función de transferencia'
+  - Controlador PID
+  - Hipotensión
+  - Normotensión
+  - Hipertensión
+license: BSD-2-Clause
+version: '1.0'
+date-released: '2026-10-20'
