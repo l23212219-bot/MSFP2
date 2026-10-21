@@ -1,160 +1,451 @@
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=l23212219-bot/MSFP2)
 
-# Práctica 2: Modelo del sistema cardiovascular
+# Práctica 2: Modelado y control del sistema cardiovascular
 
-## Información del estudiante
+Repositorio correspondiente a la **Práctica 2 de Modelado de Sistemas Fisiológicos**, enfocada en la representación matemática y computacional del sistema cardiovascular mediante una analogía eléctrica RLC.
 
-Sergio Andree Navarro Rodriguez; 23212219; [l23212219@tijuana.tecnm.mx]
+En esta práctica se estudian tres condiciones cardiovasculares —**hipotensión, normotensión e hipertensión**— mediante modelos de función de transferencia. Posteriormente, se implementan controladores PID para modificar la respuesta de los modelos hipotenso e hipertenso y aproximarla al comportamiento del sistema normotenso.
 
-Modelado de Sistemas Fisiológicos
+Las simulaciones se desarrollan y comparan utilizando **MATLAB, Simulink y Python**.
 
-Ingeniería Biomédica
+---
 
-## Docente
+## Información académica
 
-Dr. Paul Antonio Valle Trujillo; paul.valle@tectijuana.edu.mx
+**Estudiante:** Sergio Andree Navarro Rodriguez  
+**Número de control:** 23212219  
+**Correo:** l23212219@tijuana.tecnm.mx  
 
-Departamento de Ingeniería Eléctrica y Electrónica, Tecnológico Nacional de México/IT Tijuana, Blvd. Alberto Limón Padilla s/n, Tijuana, C.P. 22454, B.C., México.
+**Asignatura:** Modelado de Sistemas Fisiológicos  
+**Carrera:** Ingeniería Biomédica  
+
+### Docente
+
+**Dr. Paul Antonio Valle Trujillo**  
+paul.valle@tectijuana.edu.mx  
+
+Departamento de Ingeniería Eléctrica y Electrónica  
+Tecnológico Nacional de México / Instituto Tecnológico de Tijuana  
+Blvd. Alberto Limón Padilla s/n, Tijuana, C.P. 22454, B.C., México.
+
+---
 
 ## Descripción de la asignatura
 
-El modelizado de sistemas fisiológicos es una herramienta importante en Ingeniería Biomédica, ya que permite comprender el funcionamiento del cuerpo humano, así como diseñar y evaluar terapias y dispositivos médicos. Se define como el proceso de formular modelos matemáticos o computacionales que representan el comportamiento y la interacción de los sistemas biológicos y fisiológicos.
+El modelado de sistemas fisiológicos permite representar mediante herramientas matemáticas, eléctricas y computacionales el comportamiento dinámico de diferentes procesos del cuerpo humano.
 
-Esta asignatura pretende aportar al perfil del Ingeniero Biomédico la capacidad de realizar investigación científica en el área de Biología de Sistemas, con la finalidad de dirigir y participar en equipos de trabajo interdisciplinarios en contextos nacionales e internacionales, así como proporcionar soluciones informáticas para resolver problemas en el campo de la Ingeniería Biomédica con ética profesional.
+Dentro de Ingeniería Biomédica, estas técnicas permiten integrar conocimientos de **fisiología, electrónica, matemáticas, programación e ingeniería de control** para analizar sistemas biológicos, predecir su comportamiento y evaluar estrategias de control mediante experimentación *in silico*.
 
-Lo anterior se logra al proporcionar al estudiante bases sólidas para modelizar sistemas y diseñar controladores para la solución de problemas en las áreas de atención médica y del sector industrial médico. La construcción de analogías entre circuitos eléctricos y sistemas fisiológicos para la formulación de modelos matemáticos y el diseño de controladores mediante experimentación *in silico* brinda herramientas de gran aplicación en el quehacer profesional del Ingeniero Biomédico.
+En esta asignatura se utilizan analogías entre sistemas fisiológicos y circuitos eléctricos RLC para obtener modelos matemáticos, funciones de transferencia y simulaciones computacionales que permitan estudiar la dinámica de los sistemas fisiológicos bajo diferentes condiciones.
 
-La asignatura de Modelado de Sistemas Fisiológicos forma parte del plan de estudios de la carrera en Ingeniería Biomédica con la siguiente competencia general del curso: utilizar las propiedades de los circuitos RLC para describir la dinámica de sistemas fisiológicos, obtener modelos matemáticos y aplicar el control clásico, integrando los principios de la Ingeniería de Control, la Electrónica Analógica y las Ciencias de la Computación con la Anatomía y Fisiología del cuerpo humano, con el objetivo de modelizar, analizar, controlar, ilustrar y predecir la dinámica de sistemas fisiológicos complejos.
+---
 
-## Objetivos
+## Objetivos de la práctica
 
-1. Representar el comportamiento dinámico del sistema cardiovascular mediante una analogía eléctrica basada en elementos RLC.
+1. Representar el comportamiento del sistema cardiovascular mediante una analogía eléctrica.
+
 2. Obtener la función de transferencia correspondiente al modelo cardiovascular.
-3. Analizar los polos y la estabilidad del sistema.
-4. Modelizar diferentes condiciones cardiovasculares mediante la modificación de los parámetros del circuito.
-5. Simular las respuestas correspondientes a un individuo hipotenso, normotenso e hipertenso.
-6. Comparar el comportamiento de las diferentes condiciones cardiovasculares mediante simulaciones en MATLAB y Python.
-7. Diseñar y sintonizar controladores PID para modificar la respuesta de los modelos hipotenso e hipertenso.
-8. Utilizar como referencia el comportamiento del individuo normotenso para evaluar la respuesta de los sistemas controlados.
-9. Obtener y comparar las respuestas en lazo abierto y lazo cerrado.
-10. Implementar el modelo computacional mediante MATLAB, Simulink y Python.
 
-## Descripción detallada del sistema
+3. Analizar los polos y el comportamiento dinámico del sistema.
 
-El sistema cardiovascular puede representarse mediante una analogía eléctrica en la que diferentes propiedades del flujo sanguíneo y de los vasos sanguíneos se relacionan con los componentes de un circuito eléctrico.
+4. Modelar diferentes condiciones cardiovasculares modificando los parámetros del modelo.
 
-En el modelo utilizado, la resistencia **R** representa la oposición al flujo sanguíneo producida por el sistema vascular, mientras que la capacitancia **C** representa la distensibilidad o *compliance* de los vasos sanguíneos, es decir, su capacidad para almacenar volumen de sangre cuando cambia la presión.
+5. Simular las condiciones de un individuo **hipotenso, normotenso e hipertenso**.
 
-La inductancia **L** representa la inertancia de la sangre, asociada con la resistencia del fluido a cambios rápidos en su velocidad. El parámetro **Z** representa una impedancia característica asociada con el comportamiento del sistema vascular.
+6. Comparar las respuestas de los tres modelos en lazo abierto.
 
-A partir de estos parámetros se construye una función de transferencia que permite estudiar la respuesta dinámica del sistema cardiovascular. En esta práctica se consideran tres condiciones fisiológicas:
+7. Utilizar el modelo normotenso como referencia para el diseño del sistema de control.
 
-- **Hipotenso:** representa una condición de presión arterial inferior a la condición de referencia.
-- **Normotenso:** representa el comportamiento considerado normal y se utiliza como referencia para el sistema.
-- **Hipertenso:** representa una condición de presión arterial superior a la condición de referencia.
+8. Implementar controladores PID para los modelos hipotenso e hipertenso.
 
-Las tres condiciones se obtienen mediante cambios en los parámetros del modelo, principalmente en la capacitancia vascular, permitiendo observar cómo las modificaciones en las propiedades del sistema cardiovascular afectan su respuesta dinámica.
+9. Comparar las respuestas en lazo abierto y lazo cerrado.
 
-La función de transferencia empleada en las simulaciones se construye a partir de los parámetros \(Z\), \(R\), \(L\) y \(C\):
+10. Implementar y contrastar el modelo utilizando **MATLAB, Simulink y Python**.
 
-\[
+---
+
+# Modelo del sistema cardiovascular
+
+El sistema cardiovascular puede representarse de forma simplificada mediante una analogía entre variables fisiológicas y componentes de un circuito eléctrico.
+
+En el modelo utilizado en esta práctica se consideran los parámetros:
+
+| Parámetro | Interpretación en el modelo |
+|:---:|---|
+| **R** | Resistencia vascular al flujo sanguíneo |
+| **L** | Inertancia asociada al movimiento de la sangre |
+| **C** | Capacitancia o *compliance* vascular |
+| **Z** | Impedancia característica del sistema |
+
+La **resistencia vascular** representa la oposición que encuentra la sangre al desplazarse por los vasos.
+
+La **inertancia** representa la tendencia de la masa sanguínea a oponerse a cambios rápidos en su movimiento.
+
+La **compliance vascular** representa la capacidad de los vasos sanguíneos para expandirse y almacenar volumen cuando cambia la presión.
+
+Mediante estos elementos es posible construir un modelo dinámico que relacione una señal de entrada con la respuesta cardiovascular del sistema.
+
+---
+
+## Representación del sistema
+
+![Representación del sistema cardiovascular](Biorender.jpeg)
+
+---
+
+# Función de transferencia
+
+La función de transferencia utilizada para representar el sistema cardiovascular es:
+
+$$
 H(s)=
 \frac{LRs+RZ}
 {CLRZs^2+(LR+LZ)s+ZR}
-\]
+$$
 
-Para realizar las simulaciones se utilizan los siguientes conjuntos de parámetros:
+donde:
 
-| Condición | Z | R | L | C |
+- \(R\) = resistencia.
+- \(L\) = inertancia.
+- \(C\) = capacitancia o *compliance*.
+- \(Z\) = impedancia característica.
+- \(s\) = variable compleja de Laplace.
+
+La expresión corresponde a un sistema dinámico de **segundo orden**, cuyos polos pueden calcularse a partir de las raíces del denominador.
+
+---
+
+# Condiciones cardiovasculares
+
+Para estudiar el efecto que tienen las propiedades del sistema sobre su respuesta dinámica se implementan tres conjuntos de parámetros.
+
+| Condición | \(Z\) | \(R\) | \(L\) | \(C\) |
 |---|---:|---:|---:|---:|
-| Hipotenso | 0.01 | 1.000 | 0.001 | 3.500 |
-| Normotenso | 0.01 | 1.000 | 0.001 | 1.500 |
-| Hipertenso | 0.010 | 1.00 | 0.001 | 1.000 |
+| **Hipotenso** | 0.01 | 1.000 | 0.001 | 3.500 |
+| **Normotenso** | 0.01 | 1.000 | 0.001 | 1.500 |
+| **Hipertenso** | 0.010 | 1.00 | 0.001 | 1.000 |
 
-El modelo normotenso funciona como referencia. Posteriormente se aplican controladores PID a los modelos hipotenso e hipertenso con el propósito de reducir la diferencia entre sus respuestas y la respuesta correspondiente al individuo normotenso.
+La principal modificación realizada entre los tres modelos corresponde al parámetro \(C\).
 
-Para el sistema hipotenso se utilizan las ganancias:
+De esta forma pueden compararse las respuestas de los sistemas bajo diferentes condiciones y analizar cómo una variación de las propiedades del modelo modifica su comportamiento dinámico.
 
-\[
-K_P=458.483
-\]
+El modelo **normotenso** se utiliza como condición de referencia.
 
-\[
-K_I=1118300.387
-\]
+---
 
-\[
-K_D=0.00627
-\]
+# Simulación en lazo abierto
 
-Para el sistema hipertenso se utilizan:
+La simulación comienza utilizando la señal almacenada en:
 
-\[
-K_P=126.595
-\]
+```text
+signal.xlsx
+```
 
-\[
-K_I=293327.703
-\]
+La señal es remuestreada para trabajar en un intervalo de:
 
-\[
-K_D=0.00140
-\]
+$$
+0 \leq t \leq 15\;s
+$$
 
-De esta manera es posible comparar el comportamiento del sistema antes y después de aplicar el controlador, evaluando la capacidad del control PID para aproximar las condiciones alteradas al comportamiento del modelo normotenso.
+con un paso de simulación de:
 
-**Palabras clave:** Circuito RLC; Sistema cardiovascular; Hipotensión; Normotensión; Hipertensión; Controlador PID; Función de transferencia; Modelo matemático; MATLAB; Simulink; Python; Simulación numérica.
+$$
+\Delta t=1\times10^{-3}\;s
+$$
 
-## Lista de archivos incluidos en el repositorio
+Posteriormente se calculan las respuestas correspondientes a:
 
-1. Cuaderno computacional de MATLAB:
-   - `Navarro23212219.mlx`
-   - `Navarro23212219.pdf`
+- Individuo hipotenso.
+- Individuo normotenso.
+- Individuo hipertenso.
 
-2. Modelo de Simulink:
-   - `sistem.slx`
+Estas respuestas permiten observar las diferencias entre los modelos antes de aplicar algún sistema de control.
 
-3. Código de Python:
-   - `Navarro23212219.py`
+El resultado comparativo generado en Python se almacena en:
 
-4. Archivo con la señal utilizada en las simulaciones:
-   - `signal.xlsx`
+```text
+Individuos_python.pdf
+```
 
-5. Análisis matemático del modelo:
-   - `Análisis matemático.pdf`
+---
 
-6. Diagrama o representación del sistema cardiovascular:
-   - `Biorender.jpeg`
+# Control PID
 
-7. Resultados de las simulaciones realizadas en MATLAB:
-   - `Individual_matlab.pdf`
-   - `Normotenso_matlab.pdf`
-   - `Hipotenso_matlab.pdf`
-   - `Hipertenso_matlab.pdf`
+Después de analizar las respuestas en lazo abierto, se implementa un controlador **PID (Proporcional-Integral-Derivativo)**.
 
-8. Resultados de las simulaciones realizadas en Python:
-   - `Individuos_python.pdf`
-   - `hipotenso_python.pdf`
-   - `Hipertenso_python.pdf`
+La forma general de un controlador PID es:
 
-9. Imágenes con los parámetros utilizados para los controladores:
-   - `hipotensoparametros.jpeg`
-   - `hipertensoparametros.jpeg`
+$$
+C(s)=K_P+\frac{K_I}{s}+K_Ds
+$$
 
-10. Archivo de licencia:
-   - `LICENSE`
+donde:
 
-## Software utilizado
+- \(K_P\) corresponde a la acción proporcional.
+- \(K_I\) corresponde a la acción integral.
+- \(K_D\) corresponde a la acción derivativa.
 
-- MATLAB
-- Simulink
-- Python
-- NumPy
-- Pandas
-- SciPy
-- Matplotlib
-- Python Control Systems Library
+El objetivo del controlador es modificar la respuesta de los sistemas hipotenso e hipertenso para aproximarla al comportamiento del individuo normotenso.
 
-## Referencias
+---
 
-\[1] P. A. Valle, *Syllabus para Modelado de Sistemas Fisiológicos*, Tecnológico Nacional de México / Instituto Tecnológico de Tijuana, Tijuana, B.C., México.
+## Control del sistema hipotenso
+
+Las ganancias utilizadas son:
+
+| Ganancia | Valor |
+|:---:|---:|
+| \(K_P\) | 458.483 |
+| \(K_I\) | 1,118,300.387 |
+| \(K_D\) | 0.00627 |
+
+Se compara:
+
+- Respuesta del individuo hipotenso.
+- Respuesta del individuo normotenso.
+- Respuesta del individuo hipotenso con controlador PID.
+
+El resultado generado en Python se almacena en:
+
+```text
+hipotenso_python.pdf
+```
+
+---
+
+## Control del sistema hipertenso
+
+Las ganancias utilizadas son:
+
+| Ganancia | Valor |
+|:---:|---:|
+| \(K_P\) | 126.595 |
+| \(K_I\) | 293,327.703 |
+| \(K_D\) | 0.00140 |
+
+Se compara:
+
+- Respuesta del individuo hipertenso.
+- Respuesta del individuo normotenso.
+- Respuesta del individuo hipertenso con controlador PID.
+
+El resultado generado en Python se almacena en:
+
+```text
+Hipertenso_python.pdf
+```
+
+---
+
+# Metodología general
+
+El desarrollo de la práctica sigue el siguiente flujo:
+
+```text
+Señal de entrada
+      │
+      ▼
+Modelo matemático cardiovascular
+      │
+      ▼
+Obtención de funciones de transferencia
+      │
+      ▼
+ ┌────────────┬─────────────┬─────────────┐
+ │ Hipotenso  │ Normotenso  │ Hipertenso  │
+ └────────────┴─────────────┴─────────────┘
+      │
+      ▼
+Comparación en lazo abierto
+      │
+      ▼
+Diseño y sintonización PID
+      │
+      ├───────────────┐
+      ▼               ▼
+PID hipotenso     PID hipertenso
+      │               │
+      └───────┬───────┘
+              ▼
+Comparación con el modelo normotenso
+              │
+              ▼
+       Análisis de resultados
+```
+
+---
+
+# Implementación computacional
+
+La práctica se desarrolla mediante tres herramientas principales.
+
+### MATLAB
+
+El cuaderno:
+
+```text
+Navarro23212219.mlx
+```
+
+contiene el desarrollo computacional realizado en MATLAB.
+
+También se incluye su versión exportada:
+
+```text
+Navarro23212219.pdf
+```
+
+El botón ubicado al inicio de este README permite abrir el repositorio directamente en **MATLAB Online**.
+
+### Simulink
+
+El archivo:
+
+```text
+sistem.slx
+```
+
+contiene la implementación gráfica del modelo mediante bloques de Simulink.
+
+### Python
+
+El archivo:
+
+```text
+Navarro23212219.py
+```
+
+implementa:
+
+- Lectura de la señal de entrada.
+- Remuestreo de la señal.
+- Construcción de las funciones de transferencia.
+- Cálculo de los polos.
+- Simulación de las condiciones cardiovasculares.
+- Simulación en lazo abierto.
+- Implementación de los controladores PID.
+- Simulación en lazo cerrado.
+- Generación y exportación de las gráficas.
+
+---
+
+# Estructura del repositorio
+
+| Archivo | Descripción |
+|---|---|
+| `Navarro23212219.mlx` | Cuaderno computacional principal de MATLAB |
+| `Navarro23212219.pdf` | Versión PDF del cuaderno de MATLAB |
+| `Navarro23212219.py` | Implementación del modelo y control PID en Python |
+| `sistem.slx` | Modelo desarrollado en Simulink |
+| `signal.xlsx` | Señal utilizada como entrada para las simulaciones |
+| `Análisis matemático.pdf` | Desarrollo matemático del modelo cardiovascular |
+| `Biorender.jpeg` | Representación gráfica del sistema cardiovascular |
+| `Individual_matlab.pdf` | Comparación de individuos obtenida en MATLAB |
+| `Individuos_python.pdf` | Comparación de individuos obtenida en Python |
+| `Normotenso_matlab.pdf` | Resultado correspondiente al caso normotenso en MATLAB |
+| `Hipotenso_matlab.pdf` | Resultado del caso hipotenso en MATLAB |
+| `Hipertenso_matlab.pdf` | Resultado del caso hipertenso en MATLAB |
+| `hipotenso_python.pdf` | Respuesta del sistema hipotenso y su controlador en Python |
+| `Hipertenso_python.pdf` | Respuesta del sistema hipertenso y su controlador en Python |
+| `hipotensoparametros.jpeg` | Parámetros utilizados para el control del sistema hipotenso |
+| `hipertensoparametros.jpeg` | Parámetros utilizados para el control del sistema hipertenso |
+| `LICENSE` | Licencia del repositorio |
+
+---
+
+# Requisitos
+
+## MATLAB
+
+Para ejecutar los archivos de MATLAB se requiere:
+
+- MATLAB.
+- Simulink.
+- Herramientas necesarias para trabajar con funciones de transferencia y sistemas de control.
+
+También es posible abrir el proyecto mediante **MATLAB Online** utilizando el botón ubicado al inicio del README.
+
+---
+
+## Python
+
+El código utiliza las siguientes bibliotecas:
+
+```text
+numpy
+pandas
+scipy
+matplotlib
+control
+openpyxl
+```
+
+Pueden instalarse mediante:
+
+```bash
+pip install numpy pandas scipy matplotlib control openpyxl
+```
+
+---
+
+# Ejecución en Python
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/l23212219-bot/MSFP2.git
+```
+
+Entrar en la carpeta:
+
+```bash
+cd MSFP2
+```
+
+Ejecutar:
+
+```bash
+python Navarro23212219.py
+```
+
+El archivo:
+
+```text
+signal.xlsx
+```
+
+debe permanecer en el mismo directorio que el programa de Python para que pueda ser leído correctamente.
+
+Al finalizar la simulación se generan las gráficas correspondientes a las condiciones cardiovasculares y a los sistemas controlados.
+
+---
+
+# Resultados
+
+El proyecto permite comparar el comportamiento dinámico de los tres modelos cardiovasculares y visualizar el efecto producido por los controladores PID.
+
+Los principales resultados corresponden a:
+
+1. Respuesta en lazo abierto de los individuos hipotenso, normotenso e hipertenso.
+2. Comparación entre el individuo hipotenso y el sistema hipotenso controlado.
+3. Comparación entre el individuo hipertenso y el sistema hipertenso controlado.
+4. Análisis de la aproximación de los sistemas controlados hacia la respuesta del modelo normotenso.
+5. Comparación de las implementaciones realizadas en MATLAB y Python.
+
+---
+
+## Palabras clave
+
+`Sistema cardiovascular` · `Modelado fisiológico` · `Circuito RLC` · `Función de transferencia` · `Control PID` · `Hipotensión` · `Normotensión` · `Hipertensión` · `MATLAB` · `Simulink` · `Python` · `Ingeniería Biomédica`
+
+---
+
+# Referencia
+
+[1] P. A. Valle, *Syllabus para Modelado de Sistemas Fisiológicos*, Tecnológico Nacional de México / Instituto Tecnológico de Tijuana, Tijuana, B.C., México.
+
+---
+
+# Licencia
+
+Este repositorio se distribuye bajo la licencia **BSD 2-Clause**. Para más información, consultar el archivo [`LICENSE`](LICENSE).
